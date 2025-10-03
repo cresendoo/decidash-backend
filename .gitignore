@@ -1,0 +1,6 @@
+.local
+.env
+.docker
+bin/*
+!bin/.gitkeep
+config/config*.yaml

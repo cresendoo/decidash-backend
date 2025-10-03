@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  api-server:
+    image: "cresendoo/decidash-backend:latest"
+    restart: always
+    network_mode: host
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - curl -f http://localhost:3000/health_check || exit 1 
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - GIN_MODE=debug
+      - PHASE=prod
+    ports:
+      - 3000:3000
+    build:
+      context: .
+      dockerfile: docker/api-server/Dockerfile
+      labels:
+        server.name: "backend"
+    command: api-server
+    volumes:
+      - ./config:/app/config
+      - .docker/api-server:/app/logs

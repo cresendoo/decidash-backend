@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  redis-server:
+    image: redis:8.0.2
+    restart: always
+    ports:
+      - 16379:6379
+    command: redis-server
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - redis-cli ping | grep PONG
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  mysql:
+    image: "mysql:8.0.30"
+    restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --character-set-client-handshake=false --wait_timeout=28800 --authentication-policy=mysql_native_password --local-infile=1
+    environment:
+      MYSQL_ROOT_PASSWORD: "!coldbell!"
+      MYSQL_DATABASE: "coldbell"
+      MYSQL_USER: "coldbell"
+      MYSQL_PASSWORD: "!coldbell!"
+      TZ: "UTC"
+    ports:
+      - 13306:3306
+    volumes:
+      - .docker/mysql/data:/data
+      - .docker/mysql/var/lib/mysql:/var/lib/mysql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
