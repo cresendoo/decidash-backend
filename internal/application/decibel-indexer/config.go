@@ -1,4 +1,4 @@
-package apiserver
+package decibelindexer
 
 import (
 	"log/slog"
@@ -14,7 +14,6 @@ type Config struct {
 		File   string     `yaml:"file"`
 	} `yaml:"log"`
 
-	Port      string `yaml:"port"`
 	SentryDSN string `yaml:"sentry_dsn"`
 
 	DB    string `yaml:"db"`
@@ -23,10 +22,6 @@ type Config struct {
 		Pool int    `yaml:"pool"`
 		DB   int    `yaml:"db"`
 	} `yaml:"redis"`
-
-	AptosAccounts struct {
-		FeePayer string `yaml:"fee_payer"`
-	} `yaml:"aptos_accounts"`
 }
 
 func (c *Config) Load() error {
@@ -35,7 +30,7 @@ func (c *Config) Load() error {
 
 func (c *Config) FileName() string {
 	if utils.IsProductionPhase() {
-		return "config-api-server-prod.yaml"
+		return "config-decibel-indexer-prod.yaml"
 	}
-	return "config-api-server-dev.yaml"
+	return "config-decibel-indexer-dev.yaml"
 }

@@ -1,0 +1,239 @@
+{
+    "version": "23896172",
+    "hash": "0xc405cb7bd43ce21416982d6a0c319e812b1154c37b8450ceb6c762d0a6f31958",
+    "state_change_hash": "0xe610a3122e40e5edbf19f22028a9560868a4322860b1ff09eca708d901ba2cd7",
+    "event_root_hash": "0xa25262a364163009874c7884f50a83676c97303bce2ce61d6da88a06f90d660c",
+    "state_checkpoint_hash": null,
+    "gas_used": "1570",
+    "success": true,
+    "vm_status": "Executed successfully",
+    "accumulator_root_hash": "0x125cebcbf5414abdd7977bb06d2255185d7d023080e690cf840b04e835a94398",
+    "changes": [
+        {
+            "address": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+            "state_key_hash": "0xef5069baf053a4f1ed1d68b902f7204ef4df6891bb985b0206fa47555775e638",
+            "data": {
+                "type": "0x1::account::Account",
+                "data": {
+                    "authentication_key": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+                    "coin_register_events": {
+                        "counter": "0",
+                        "guid": {
+                            "id": {
+                                "addr": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+                                "creation_num": "0"
+                            }
+                        }
+                    },
+                    "guid_creation_num": "2",
+                    "key_rotation_events": {
+                        "counter": "0",
+                        "guid": {
+                            "id": {
+                                "addr": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+                                "creation_num": "1"
+                            }
+                        }
+                    },
+                    "rotation_capability_offer": {
+                        "for": {
+                            "vec": []
+                        }
+                    },
+                    "sequence_number": "1",
+                    "signer_capability_offer": {
+                        "for": {
+                            "vec": []
+                        }
+                    }
+                }
+            },
+            "type": "write_resource"
+        },
+        {
+            "address": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7",
+            "state_key_hash": "0x5d7cbf558465b8ae316da3ce72ebcc96378f8163d200008b76f5286aca20dffa",
+            "data": {
+                "type": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::perp_positions::CrossedPosition",
+                "data": {
+                    "positions": []
+                }
+            },
+            "type": "write_resource"
+        },
+        {
+            "address": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7",
+            "state_key_hash": "0x3a454e0b1927d9409045c7de7a990bed2957514efadc229074272f6a04efadcf",
+            "data": {
+                "type": "0x1::object::ObjectCore",
+                "data": {
+                    "allow_ungated_transfer": false,
+                    "guid_creation_num": "1125899906842625",
+                    "owner": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+                    "transfer_events": {
+                        "counter": "0",
+                        "guid": {
+                            "id": {
+                                "addr": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7",
+                                "creation_num": "1125899906842624"
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "write_resource"
+        },
+        {
+            "address": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7",
+            "state_key_hash": "0x3a454e0b1927d9409045c7de7a990bed2957514efadc229074272f6a04efadcf",
+            "data": {
+                "type": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::dex_accounts::Subaccount",
+                "data": {
+                    "delegated_trading": {
+                        "__variant__": "SortedVectorMap",
+                        "entries": [
+                            {
+                                "key": "0xb0ae211daf94c01dbaadbea70a5b6ce8e6cafaedc86ca24b66f549b249ec6c8a",
+                                "value": {
+                                    "__variant__": "TradingAllowed"
+                                }
+                            }
+                        ]
+                    },
+                    "extend_ref": {
+                        "self": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7"
+                    }
+                }
+            },
+            "type": "write_resource"
+        },
+        {
+            "address": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7",
+            "state_key_hash": "0x3a454e0b1927d9409045c7de7a990bed2957514efadc229074272f6a04efadcf",
+            "data": {
+                "type": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::perp_positions::AccountInfo",
+                "data": {
+                    "fee_tracking_addr": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97"
+                }
+            },
+            "type": "write_resource"
+        },
+        {
+            "address": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7",
+            "state_key_hash": "0x3a454e0b1927d9409045c7de7a990bed2957514efadc229074272f6a04efadcf",
+            "data": {
+                "type": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::perp_positions::IsolatedPositionRefs",
+                "data": {
+                    "extend_refs": {
+                        "__variant__": "SortedVectorMap",
+                        "entries": []
+                    }
+                }
+            },
+            "type": "write_resource"
+        },
+        {
+            "address": "0xb776cfc347aa51ac067b11118e76fbca0829a8d8d71d206bff61636ee95b4dc3",
+            "state_key_hash": "0xd4b8ee77b1db82b22baa78c0e13958c91c01783620d6ed38e69d7c953d92300e",
+            "data": {
+                "type": "0x1::object::ObjectCore",
+                "data": {
+                    "allow_ungated_transfer": false,
+                    "guid_creation_num": "1125899906842625",
+                    "owner": "0x3628edec4ea21bd6d80ab8f90ab70239cf2b6a741d63c0b862ef71cbdb680dd",
+                    "transfer_events": {
+                        "counter": "0",
+                        "guid": {
+                            "id": {
+                                "addr": "0xb776cfc347aa51ac067b11118e76fbca0829a8d8d71d206bff61636ee95b4dc3",
+                                "creation_num": "1125899906842624"
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "write_resource"
+        }
+    ],
+    "sender": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+    "sequence_number": "0",
+    "max_gas_amount": "200000",
+    "gas_unit_price": "100",
+    "expiration_timestamp_secs": "1759515925",
+    "payload": {
+        "function": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::dex_accounts::delegate_trading_to",
+        "type_arguments": [],
+        "arguments": [
+            "0xb0ae211daf94c01dbaadbea70a5b6ce8e6cafaedc86ca24b66f549b249ec6c8a"
+        ],
+        "type": "entry_function_payload"
+    },
+    "signature": {
+        "sender": {
+            "public_key": "0xd2403baca39515218393d080d6f92aaf0288f18ede0cddce62f75747f842c4f5",
+            "signature": "0x3b2353c2789c06447d1ad4077c05eaed2c3bc180b9eb18d46bbf8767b2af77a5985ad7bc3bf006c949303e1704d58602ff7614d7b95ed23365137c6dd47bb408",
+            "type": "ed25519_signature"
+        },
+        "secondary_signer_addresses": [],
+        "secondary_signers": [],
+        "fee_payer_address": "0x3628edec4ea21bd6d80ab8f90ab70239cf2b6a741d63c0b862ef71cbdb680dd",
+        "fee_payer_signer": {
+            "public_key": "0x9218640bacc2189d35f1fed0496dc160f83c573a946da3b5e8d558ffde508e96",
+            "signature": "0x71836b79547b3a39bcdf411dc9238196f2a871de406d72c1b95ddcd36099346049a2c0b902066565b40b606c19c13df5b39d6426e53df320a9e83e15abb7d906",
+            "type": "ed25519_signature"
+        },
+        "type": "fee_payer_signature"
+    },
+    "replay_protection_nonce": null,
+    "events": [
+        {
+            "guid": {
+                "creation_number": "0",
+                "account_address": "0x0"
+            },
+            "sequence_number": "0",
+            "type": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::dex_accounts::SubaccountCreatedEvent",
+            "data": {
+                "is_primary": true,
+                "owner": "0x1cec83cd15cf6827b782ce2751bc812390d41ed8fa4ef879dcc5bb8deee01a97",
+                "subaccount": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7"
+            }
+        },
+        {
+            "guid": {
+                "creation_number": "0",
+                "account_address": "0x0"
+            },
+            "sequence_number": "0",
+            "type": "0xb8a5788314451ce4d2fbbad32e1bad88d4184b73943b7fe5166eab93cf1a5a95::dex_accounts::DelegationChangedEvent",
+            "data": {
+                "delegated_account": "0xb0ae211daf94c01dbaadbea70a5b6ce8e6cafaedc86ca24b66f549b249ec6c8a",
+                "delegation": {
+                    "vec": [
+                        {
+                            "__variant__": "TradingAllowed"
+                        }
+                    ]
+                },
+                "subaccount": "0x57bf3e3938f00f4fc079f67e3af5caa3a3fe7d1942a23253ecd3ad958ae9e6b7"
+            }
+        },
+        {
+            "guid": {
+                "creation_number": "0",
+                "account_address": "0x0"
+            },
+            "sequence_number": "0",
+            "type": "0x1::transaction_fee::FeeStatement",
+            "data": {
+                "execution_gas_units": "7",
+                "io_gas_units": "3",
+                "storage_fee_octas": "156040",
+                "storage_fee_refund_octas": "0",
+                "total_charge_gas_units": "1570"
+            }
+        }
+    ],
+    "timestamp": "1759515905854583",
+    "type": "user_transaction"
+}

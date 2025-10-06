@@ -1,4 +1,4 @@
-package client
+package fullnode
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ func TestFullnodeRpcClient(t *testing.T) {
 		t.Fatalf("failed to create fullnode rpc client: %v", err)
 	}
 
-	txs, _, err := client.getTransactions(nil, nil)
+	txs, _, _, err := client.getTransactions(nil, nil)
 	if err != nil {
 		t.Fatalf("failed to get fullnode rpc client: %v", err)
 	}
@@ -32,14 +32,14 @@ func TestFullnodeRpcStream(t *testing.T) {
 		t.Fatalf("failed to create fullnode rpc client: %v", err)
 	}
 
-	stream, err := client.NewStream(0, 100)
+	stream, err := client.NewStream(1, 100)
 	if err != nil {
 		t.Fatalf("failed to create fullnode rpc stream: %v", err)
 	}
 	defer stream.Close()
 
 	go func() {
-		time.Sleep(time.Second * 10)
+		time.Sleep(time.Second * 30)
 		stream.Close()
 	}()
 
@@ -53,5 +53,7 @@ func TestFullnodeRpcStream(t *testing.T) {
 			return
 		}
 		fmt.Println(len(txs))
+		fmt.Println(txs[0].Version)
+		fmt.Println(txs[len(txs)-1].Version)
 	}
 }

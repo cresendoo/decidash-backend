@@ -1,4 +1,4 @@
-package client
+package fullnode
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 	"github.com/aptos-labs/aptos-go-sdk/api"
 )
 
-type fullnodeRpcClient struct {
+type FullnodeFetcher struct {
 	httpClient *http.Client
 
 	baseUrl *url.URL
@@ -44,19 +44,19 @@ func (s *FullnodeRpcStream) Close() {
 
 // Using FullNode RPC Client.
 // @param serverAddr: http://localhost:8080/v1
-func NewFullnodeRpcClient(serverAddr string, apiKey string) (*fullnodeRpcClient, error) {
+func NewFullnodeRpcClient(serverAddr string, apiKey string) (*FullnodeFetcher, error) {
 	baseUrl, err := url.Parse(serverAddr)
 	if err != nil {
 		return nil, err
 	}
-	return &fullnodeRpcClient{
+	return &FullnodeFetcher{
 		apiKey:     apiKey,
 		baseUrl:    baseUrl,
 		httpClient: &http.Client{Timeout: 10 * time.Second},
 	}, nil
 }
 
-func (c *fullnodeRpcClient) NewStream(
+func (c *FullnodeFetcher) NewStream(
 	startVersion uint64,
 	limit uint64,
 ) (*FullnodeRpcStream, error) {
@@ -67,7 +67,7 @@ func (c *fullnodeRpcClient) NewStream(
 		txChan: make(chan []*api.UserTransaction, 128),
 	}
 
-	limit = uint64(math.Min(float64(limit), 25))
+	limit = uint64(math.Min(float64(limit), 100))
 
 	delay := time.Millisecond * 25
 
@@ -81,18 +81,20 @@ func (c *fullnodeRpcClient) NewStream(
 			case <-ctx.Done():
 				return
 			default:
-				txs, count, err := c.getTransactions(&startVersion, &limit)
+				txs, count, lastVersion, err := c.getTransactions(&startVersion, &limit)
 				if err != nil {
 					slog.Error("failed to get transactions", "error", err)
 					return
 				}
+				startVersion = lastVersion + 1
 				if count == 0 || count < int(limit) {
 					time.Sleep(delay)
 					continue
 				}
+				if len(txs) == 0 {
+					continue
+				}
 
-				lastTx := txs[len(txs)-1]
-				startVersion = lastTx.Version + 1
 				select {
 				case <-ctx.Done():
 					return
@@ -105,10 +107,10 @@ func (c *fullnodeRpcClient) NewStream(
 	return stream, nil
 }
 
-func (c *fullnodeRpcClient) getTransactions(
+func (c *FullnodeFetcher) getTransactions(
 	startVersion *uint64,
 	limit *uint64,
-) ([]*api.UserTransaction, int, error) {
+) ([]*api.UserTransaction, int, uint64, error) {
 	requestURI := c.baseUrl.JoinPath("/transactions")
 	params := url.Values{}
 	if startVersion != nil {
@@ -117,10 +119,11 @@ func (c *fullnodeRpcClient) getTransactions(
 	if limit != nil {
 		params.Set("limit", strconv.FormatUint(*limit, 10))
 	}
+	requestURI.RawQuery = params.Encode()
 
 	req, err := http.NewRequest("GET", requestURI.String(), nil)
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, *startVersion, err
 	}
 	if c.apiKey != "" {
 		req.Header.Set("Authorization", "Bearer "+c.apiKey)
@@ -128,18 +131,18 @@ func (c *fullnodeRpcClient) getTransactions(
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, *startVersion, err
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, *startVersion, err
 	}
 
 	var txs []*api.CommittedTransaction
 	if err := json.Unmarshal(body, &txs); err != nil {
-		return nil, 0, err
+		return nil, 0, *startVersion, err
 	}
 
 	var userTxs []*api.UserTransaction
@@ -152,5 +155,5 @@ func (c *fullnodeRpcClient) getTransactions(
 			userTxs = append(userTxs, userTx)
 		}
 	}
-	return userTxs, len(txs), nil
+	return userTxs, len(txs), txs[len(txs)-1].Version(), nil
 }

@@ -8,7 +8,6 @@ import (
 
 	"github.com/aptos-labs/aptos-go-sdk"
 	"github.com/cresendoo/decidash-backend/internal/xaptos"
-	"github.com/cresendoo/decidash-backend/pkg/db"
 	"github.com/cresendoo/decidash-backend/pkg/errorx"
 	"github.com/cresendoo/decidash-backend/pkg/xredis"
 	"github.com/mediocregopher/radix/v3"
@@ -17,7 +16,6 @@ import (
 type Application struct {
 	ctx context.Context
 
-	conn *db.DB
 	pool *radix.Pool
 
 	httpServer *http.Server
@@ -31,10 +29,6 @@ func NewApplication(ctx context.Context, logger *slog.Logger, cfg *Config) (*App
 	app := Application{ctx: ctx, logger: logger}
 	var err error
 
-	app.conn, err = db.NewMySQLDB(cfg.DB)
-	if err != nil {
-		return nil, err
-	}
 	app.pool, err = xredis.NewRedisPool(cfg.Redis.Addr, cfg.Redis.Pool, cfg.Redis.DB, "")
 	if err != nil {
 		return nil, err
@@ -89,10 +83,6 @@ func (a *Application) Close() error {
 				return errorx.Wrap(err)
 			}
 		}
-	}
-
-	if err := a.conn.Close(); err != nil {
-		return errorx.Wrap(err)
 	}
 	return nil
 }
