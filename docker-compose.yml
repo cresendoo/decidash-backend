@@ -19,10 +19,26 @@ services:
       - 3000:3000
     build:
       context: .
-      dockerfile: docker/api-server/Dockerfile
+      dockerfile: docker/Dockerfile
       labels:
         server.name: "backend"
     command: api-server
     volumes:
       - ./config:/app/config
       - .docker/api-server:/app/logs
+  decibel-indexer:
+    image: "cresendoo/decidash-backend:latest"
+    restart: always
+    network_mode: host
+    command: decibel-indexer
+    volumes:
+      - ./config:/app/config
+      - .docker/decibel-indexer:/app/logs
+    environment:
+      - GIN_MODE=debug
+      - PHASE=prod
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      labels:
+        server.name: "decibel-indexer"

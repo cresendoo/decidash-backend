@@ -16,6 +16,7 @@ COPY internal internal
 COPY pkg pkg
 
 RUN GOOS=linux GOARCH=amd64 go build -o ./api-server ./cmd/api-server
+RUN GOOS=linux GOARCH=amd64 go build -o ./decibel-indexer ./cmd/decibel-indexer
 
 ARG RELEASE
 ENV RELEASE=${RELEASE}
@@ -36,6 +37,7 @@ RUN cp /usr/share/zoneinfo/UTC /etc/localtime
 RUN echo "UTC" > /etc/timezone
 
 COPY --from=builder /app/api-server /app/api-server
+COPY --from=builder /app/decibel-indexer /app/decibel-indexer
 
 COPY ./entrypoint.sh /app/
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
